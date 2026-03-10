@@ -253,7 +253,7 @@ exports.getSchoolLeaderboard = catchAsync(async (req, res, next) => {
     .lean();
 
   // Create leaderboard with ranks
-  const leaderboard = getLeaderboard(currentUser, top100Users);
+  const leaderboard = await getLeaderboard(currentUser, top100Users);
 
   // Check if current user is in top 100
   const currentUserInTop100 = leaderboard.find((entry) => entry.isCurrentUser);
@@ -304,7 +304,7 @@ exports.getIraqLeaderboard = catchAsync(async (req, res, next) => {
     .lean();
 
   // Create leaderboard with ranks
-  const leaderboard = getLeaderboard(currentUser, top100Users);
+  const leaderboard = await getLeaderboard(currentUser, top100Users);
 
   // Check if current user is in top 100
   const currentUserInTop100 = leaderboard.find((entry) => entry.isCurrentUser);
