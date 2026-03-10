@@ -19,8 +19,9 @@ This folder contains test data and a seeder script to populate the database with
 ### Prerequisites
 
 Make sure you have:
+
 1. MongoDB running (locally or remote)
-2. `MONGODB_URI` set in `config.env` file in the project root
+2. `DB` and `DATABASE_PASSWORD` set in `config.env` file in the project root
 
 ### Import Test Data
 
@@ -31,7 +32,8 @@ node dev-data/import-dev-data.js --import
 ```
 
 This will:
-1. Connect to the database using `MONGODB_URI` from `config.env`
+
+1. Connect to the database using `DB` and `DATABASE_PASSWORD` from `config.env`
 2. Delete all existing data from all collections
 3. Import fresh test data from all JSON files
 4. Display a summary of imported records
@@ -45,6 +47,7 @@ node dev-data/import-dev-data.js --delete
 ```
 
 This will remove all records from:
+
 - Users
 - Schools
 - Challenges
@@ -63,6 +66,7 @@ node dev-data/import-dev-data.js --import mongodb://localhost:27017/hackathon-db
 ## 📊 Test Data Details
 
 ### Users (102 records)
+
 - **Roles**: 2 admins, 8 creators, 10 editors, 82 regular users
 - **Password**: All users have password `password123` (pre-hashed)
 - **Email**: Format `user{n}@example.com` (e.g., user1@example.com)
@@ -71,11 +75,13 @@ node dev-data/import-dev-data.js --import mongodb://localhost:27017/hackathon-db
 - **Names**: Mix of Arabic and English names
 
 ### Schools (10 records)
+
 - Mix of Arabic and English school names
 - Located in various Saudi cities: Riyadh, Jeddah, Dammam, Mecca, Medina, Khobar, Abha, Taif, Jubail
 
 ### Challenges (42 records)
-- **Types**: 
+
+- **Types**:
   - `solo` - Individual challenges (e.g., plant a tree, recycle plastic)
   - `school_task` - School-based challenges (e.g., beach cleanup, green school campaign)
 - **Points**: Range from 20-65 points
@@ -83,6 +89,7 @@ node dev-data/import-dev-data.js --import mongodb://localhost:27017/hackathon-db
 - **Topics**: Recycling, water conservation, energy saving, biodiversity, climate change, etc.
 
 ### Badges (10 records)
+
 - **Requirement Types**:
   - `challenges_count` - Earn by completing X challenges
   - `points_threshold` - Earn by reaching X points
@@ -90,30 +97,35 @@ node dev-data/import-dev-data.js --import mongodb://localhost:27017/hackathon-db
 - Mix of Arabic and English badge names
 
 ### User Challenges (10 records)
-- **Statuses**: 
+
+- **Statuses**:
   - `approved` - Challenge verified and approved
-  - `processing` - Pending review
+  - `pending` - Pending review
   - `rejected` - Challenge rejected
 - Each has a proof URL (example URLs)
 
 ### User Badges (10 records)
+
 - Links users to their earned badges
 
 ## 🔧 Usage Examples
 
 ### Full Database Reset with New Data
+
 ```bash
 # Delete all data and import fresh test data
 node dev-data/import-dev-data.js --import
 ```
 
 ### Clean Database
+
 ```bash
 # Remove all test data
 node dev-data/import-dev-data.js --delete
 ```
 
 ### Use with Docker/Cloud MongoDB
+
 ```bash
 # Connect to a remote MongoDB instance
 node dev-data/import-dev-data.js --import "mongodb+srv://user:password@cluster.mongodb.net/dbname"
@@ -130,7 +142,7 @@ node dev-data/import-dev-data.js --import "mongodb+srv://user:password@cluster.m
 4. **Challenge Types**: Remember that challenges now have a `challenge_type` field which can be either 'solo' or 'school_task'.
 
 5. **User Challenge Status**: The status flow is:
-   - User submits → `processing`
+   - User submits → `pending`
    - Teacher/Admin reviews → `approved` or `rejected`
 
 ## 🎯 Testing Scenarios
@@ -156,22 +168,26 @@ To modify the test data:
 ## 🐛 Troubleshooting
 
 **Database Connection Failed**
+
 - Check if MongoDB is running
-- Verify `MONGODB_URI` in `config.env` is correct
+- Verify `DB` and `DATABASE_PASSWORD` in `config.env` is correct
 - Ensure network connectivity to remote MongoDB instances
 
 **Import Errors**
+
 - Verify JSON files are valid (no syntax errors)
 - Check that all referenced IDs exist in their respective collections
 - Ensure required fields are present in all records
 
 **Permission Errors**
+
 - Make sure the database user has write permissions
 - Check if the database allows deletion operations
 
 ## 📚 Related Documentation
 
 For more information about the models and schemas, see:
+
 - `/models/userModel.js`
 - `/models/schoolModel.js`
 - `/models/challengeModel.js`
