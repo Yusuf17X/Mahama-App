@@ -1,6 +1,32 @@
 # Mahama App - Monorepo
 
-This repository contains both the frontend and backend for the Mahama App project.
+A **sustainability gamification platform** for schools that empowers students to take on eco-friendly challenges, earn points, unlock achievement badges, and compete in a school leaderboard — turning environmental action into an engaging, measurable experience.
+
+## Features
+
+- **Eco-Challenges** — Students complete daily, weekly, or one-time challenges (e.g., planting, recycling, water conservation) in solo or school-wide modes, with trackable environmental impact (CO₂ saved, water saved, plastic reduced, energy saved).
+- **Gamification & Progression** — Earn points for each completed challenge, maintain activity streaks, and unlock badges based on challenge count or points thresholds.
+- **School Leaderboards** — Real-time school rankings with aggregate points and student participation, plus a public dashboard showing total platform-wide eco-impact.
+- **Role-Based Access** — Three user roles (student, teacher, admin). Teachers can create and assign "school task" challenges; admins manage the full platform.
+- **Interactive Dashboard** — Visualized eco-impact statistics and top-school leaderboard with medal-based rankings.
+- **Secure Authentication** — JWT-based login/registration, password reset via email, and role-protected routes.
+
+## Tech Stack
+
+| Layer     | Technology |
+|-----------|------------|
+| **Frontend** | React 18, TypeScript, Vite, React Router v6, TanStack React Query |
+| **UI & Styling** | Tailwind CSS, shadcn/ui (Radix UI primitives), class-variance-authority, lucide-react, embla-carousel |
+| **Forms & Validation** | React Hook Form, Zod |
+| **Charts** | Recharts |
+| **State & Data** | React Context API, TanStack React Query |
+| **Backend** | Node.js, Express 5 |
+| **Database** | MongoDB (Mongoose ODM) |
+| **Auth & Security** | JWT, bcryptjs, Helmet, rate limiting, HPP, NoSQL/XSS sanitization, CORS |
+| **File Handling** | Multer, Sharp (image processing) |
+| **Payments** | Stripe |
+| **Email** | Nodemailer |
+| **Monorepo** | npm scripts + concurrently |
 
 ## Project Structure
 
