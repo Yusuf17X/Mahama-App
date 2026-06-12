@@ -24,7 +24,6 @@ A **sustainability gamification platform** for schools that empowers students to
 | **Database** | MongoDB (Mongoose ODM) |
 | **Auth & Security** | JWT, bcryptjs, Helmet, rate limiting, HPP, NoSQL/XSS sanitization, CORS |
 | **File Handling** | Multer, Sharp (image processing) |
-| **Payments** | Stripe |
 | **Email** | Nodemailer |
 | **Monorepo** | npm scripts + concurrently |
 
