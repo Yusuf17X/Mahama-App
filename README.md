@@ -6,7 +6,7 @@ A **sustainability gamification platform** for schools that empowers students to
 
 - **Eco-Challenges** — Students complete daily, weekly, or one-time challenges (e.g., planting, recycling, water conservation) in solo or school-wide modes, with trackable environmental impact (CO₂ saved, water saved, plastic reduced, energy saved).
 - **Gamification & Progression** — Earn points for each completed challenge, maintain activity streaks, and unlock badges based on challenge count or points thresholds.
-- **School Leaderboards** — Real-time school rankings with aggregate points and student participation, plus a public dashboard showing total platform-wide eco-impact.
+- **School Leaderboards** — school rankings with aggregate points and student participation, plus a public dashboard showing total platform-wide eco-impact.
 - **Role-Based Access** — Three user roles (student, teacher, admin). Teachers can create and assign "school task" challenges; admins manage the full platform.
 - **Interactive Dashboard** — Visualized eco-impact statistics and top-school leaderboard with medal-based rankings.
 - **Secure Authentication** — JWT-based login/registration, password reset via email, and role-protected routes.
