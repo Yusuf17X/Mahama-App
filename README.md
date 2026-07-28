@@ -1,4 +1,4 @@
-# Mahama App - Monorepo
+# Mahama App
 
 A **sustainability gamification platform** for schools that empowers students to take on eco-friendly challenges, earn points, unlock achievement badges, and compete in a school leaderboard — turning environmental action into an engaging, measurable experience.
 
