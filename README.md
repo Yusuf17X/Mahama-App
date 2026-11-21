@@ -1,101 +1,95 @@
-# Mahama App
+# Mahama App — School Sustainability & Gamification Platform
 
-A **sustainability gamification platform** for schools that empowers students to take on eco-friendly challenges, earn points, unlock achievement badges, and compete in a school leaderboard — turning environmental action into an engaging, measurable experience.
+**Mahama App** is a full-stack sustainability gamification platform for schools that turns eco-friendly actions into measurable, competitive challenges. The backend REST API manages school hierarchies, recurring challenge lifecycles, photo-verified submissions, achievement badges, and real-time environmental impact leaderboards.
 
-## Features
+## Key Backend Features
 
-- **Eco-Challenges** — Students complete daily, weekly, or one-time challenges (e.g., planting, recycling, water conservation) in solo or school-wide modes, with trackable environmental impact (CO₂ saved, water saved, plastic reduced, energy saved).
-- **Gamification & Progression** — Earn points for each completed challenge, maintain activity streaks, and unlock badges based on challenge count or points thresholds.
-- **School Leaderboards** — school rankings with aggregate points and student participation, plus a public dashboard showing total platform-wide eco-impact.
-- **Role-Based Access** — Three user roles (student, teacher, admin). Teachers can create and assign "school task" challenges; admins manage the full platform.
-- **Interactive Dashboard** — Visualized eco-impact statistics and top-school leaderboard with medal-based rankings.
-- **Secure Authentication** — JWT-based login/registration, password reset via email, and role-protected routes.
+- **UTC Challenge Scheduling Engine:** Automated background scheduler (`challengeScheduler`) that manages and resets recurring daily (00:00 UTC) and weekly (Sunday 00:00 UTC) challenges alongside one-time and teacher-assigned school tasks.
+
+- **Gamification, Streaks & Eco-Impact Analytics:** Tracks student points, consecutive completion streaks, automated badge unlocking thresholds, and aggregated environmental impact metrics (carbon emissions, water, plastic, and energy saved) across individual and school-wide leaderboards.
+
+- **Role-Based Access Control (RBAC):** JWT-secured authentication and authorization supporting **3 user roles** (`student`, `teacher`, `admin`), complete with email-based password reset flows via **Nodemailer**.
+
+- **Image Upload & Optimization Pipeline:** Handles challenge completion photo proofs using **Multer** for upload validation and **Sharp** for server-side resizing and compression.
+
+- **Multi-Layer API Security:** Hardened Express 5 architecture with Helmet headers, rate limiting, HTTP Parameter Pollution (`HPP`) protection, CORS configuration, and custom NoSQL/XSS input sanitization.
 
 ## Tech Stack
 
-| Layer     | Technology |
-|-----------|------------|
-| **Frontend** | React 18, TypeScript, Vite, React Router v6, TanStack React Query |
-| **UI & Styling** | Tailwind CSS, shadcn/ui (Radix UI primitives), class-variance-authority, lucide-react, embla-carousel |
-| **Forms & Validation** | React Hook Form, Zod |
-| **Charts** | Recharts |
-| **State & Data** | React Context API, TanStack React Query |
-| **Backend** | Node.js, Express 5 |
-| **Database** | MongoDB (Mongoose ODM) |
-| **Auth & Security** | JWT, bcryptjs, Helmet, rate limiting, HPP, NoSQL/XSS sanitization, CORS |
-| **File Handling** | Multer, Sharp (image processing) |
-| **Email** | Nodemailer |
-| **Monorepo** | npm scripts + concurrently |
+- **Backend Runtime & Framework:** Node.js, Express 5
+
+- **Database & ODM:** MongoDB, Mongoose
+
+- **Authentication & Security:** JSON Web Tokens (JWT), bcryptjs, Helmet, Express Rate Limit, HPP, Custom Input Sanitization
+
+- **Media & Notifications:** Multer, Sharp (image processing), Nodemailer
+
+- **Client Interface:** React / Vite web client consuming the `/api/v1` REST API
+
+## API Endpoints Overview (`/api/v1`)
+
+| Resource Base Path        | Description                                                                 |
+| ------------------------- | --------------------------------------------------------------------------- |
+| `/api/v1/users`           | User registration, JWT login, password reset, and profile management        |
+| `/api/v1/schools`         | School onboarding, management, and aggregate school statistics              |
+| `/api/v1/challenges`      | CRUD operations for daily, weekly, one-time, and school-assigned challenges |
+| `/api/v1/user-challenges` | Challenge submissions with photo proof, review status, and streak updates   |
+| `/api/v1/badges`          | Achievement badge definitions and point/count thresholds                    |
+| `/api/v1/user-badges`     | Earned badge records per student                                            |
+| `/api/v1/dashboard`       | Public platform-wide environmental impact summary and school leaderboards   |
 
 ## Project Structure
 
 ```
 .
-├── frontend/          # React/Vite frontend application (port 8080)
-├── backend/           # Node/Express backend API (port 5000)
-├── package.json       # Root package.json for monorepo scripts
-└── README.md         # This file
+├── backend/               # Node.js + Express 5 + MongoDB REST API (port 5000)
+│   ├── controllers/       # Route handlers and factory controllers
+│   ├── models/            # Mongoose schemas (User, School, Challenge, Badge, etc.)
+│   ├── routes/            # Express API route definitions
+│   ├── utils/             # UTC scheduler, eco-impact calculator, Sharp/sanitizer helpers
+│   └── dev-data/          # Seed scripts and sample JSON datasets
+├── frontend/              # Web client interface (port 8080)
+└── package.json           # Root monorepo scripts
+
 ```
 
 ## Quick Start
 
 ### Prerequisites
 
-- Node.js (v18 or higher recommended)
+- Node.js (v18 or higher)
+
 - npm
-- MongoDB instance (local or remote)
 
-### Initial Setup
+- MongoDB instance (local or MongoDB Atlas)
 
-1. **Install all dependencies** for both frontend and backend:
+### Installation & Setup
 
-   ```bash
+1. **Install dependencies** for the monorepo:
+
+   ```
    npm run install:all
+
    ```
 
-2. **Configure backend environment**:
-   - Create `backend/config.env` file with required environment variables (MongoDB connection, etc.)
-   - Refer to backend documentation for required variables
+2. **Configure backend environment:**
+   Create a `backend/config.env` file with your MongoDB URI, JWT secret, and SMTP credentials.
 
-### Development
+3. **Seed sample data (optional):**
+   Refer to [`backend/dev-data/README.md`](./backend/dev-data/README.md) to populate sample schools, challenges, badges, and users.
 
-**Run both frontend and backend concurrently** with a single command:
+### Running the Application
 
-```bash
-npm run dev
-```
+- **Run Backend API only (port 5000):**
 
-This will start:
-
-- Frontend development server at `http://localhost:8080`
-- Backend API server at `http://localhost:5000`
-
-### Individual Commands
-
-If you need to run services separately:
-
-- **Frontend only**:
-
-  ```bash
-  npm run dev:frontend
   ```
-
-- **Backend only**:
-  ```bash
   npm run dev:backend
+
   ```
 
-## API Configuration
+- **Run Backend and Frontend concurrently:**
 
-The frontend is configured to connect to the backend API at `http://localhost:5000/api/v1` by default.
+  ```
+  npm run dev
 
-You can override this by setting the `VITE_API_URL` environment variable in the frontend:
-
-```bash
-cd frontend
-echo "VITE_API_URL=http://your-api-url" > .env
-```
-
-## Additional Information
-
-- Backend test data seeder: `backend/dev-data/README.md`
+  ```
